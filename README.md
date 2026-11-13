@@ -5,6 +5,8 @@ animasyonla gösteren `pygame` uygulaması. Labirent fareyle çizilir; üç fark
 yöntemi (**Hibrit BFS+A\***, **A\***, **BFS**) aynı labirent üzerinde çalıştırılıp kaç
 kareye baktıkları karşılaştırılabilir.
 
+![Hibrit BFS+A* araması: taranan kareler mavi, bulunan en kısa yol sarı](docs/images/02-hibrit.png)
+
 ---
 
 ## İçindekiler
@@ -14,6 +16,7 @@ kareye baktıkları karşılaştırılabilir.
 - [Çalıştırma](#çalıştırma)
 - [Kontroller](#kontroller)
 - [Ekran düzeni](#ekran-düzeni)
+- [Ekran görüntüleri](#ekran-görüntüleri)
 - [Algoritmalar](#algoritmalar)
 - [Karşılaştırma sonuçları](#karşılaştırma-sonuçları)
 - [Testler](#testler)
@@ -95,6 +98,53 @@ python benchmark.py     # arayüzsüz karşılaştırma (konsol)
   durum mesajı ve karşılaştırma tablosu (`algoritma: taranan kare / yol adımı`).
 
 Aynı bilgiler konsola da yazılır, böylece sonuçlar rapora kopyalanabilir.
+
+## Ekran görüntüleri
+
+Aşağıdaki kareler **aynı labirent** üzerinde alınmıştır (20x50, 154 duvar);
+mavi alan algoritmanın baktığı kareleri, sarı çizgi bulunan en kısa yolu gösterir.
+Üç algoritma da **70 adımlık aynı yolu** bulur, fark taranan kare sayısındadır.
+
+### 1. Çizilen labirent (arama öncesi)
+
+![Arama öncesi labirent](docs/images/01-labirent.png)
+
+### 2. Hibrit (BFS+A\*) — 469 kare tarandı
+
+İki cephe (başlangıçtan BFS, hedeften A\*) ortada buluştuğu için taranan alan
+belirgin biçimde dardır.
+
+![Hibrit BFS+A* araması](docs/images/02-hibrit.png)
+
+### 3. A\* — 760 kare tarandı
+
+Tek cephe hedefe doğru ilerler; sezgisel sayesinde BFS'ten dar ama hibritten geniş
+bir alan tarar.
+
+![A* araması](docs/images/03-astar.png)
+
+### 4. BFS — 837 kare tarandı
+
+Sezgisel kullanmadığı için hedefin yönünü bilmez ve labirentin neredeyse tamamını
+katman katman tarar.
+
+![BFS araması](docs/images/04-bfs.png)
+
+### 5. `K` ile karşılaştırma
+
+Tek tuşla üç algoritma aynı labirentte çalışır; alt paneldeki tablo taranan kare ve
+yol adımı sayılarını yan yana gösterir.
+
+![Üç algoritmanın karşılaştırması](docs/images/05-karsilastirma.png)
+
+> Görseller elle alınmaz; `docs/make_screenshots.py` uygulamanın kendi çizim kodunu
+> penceresiz (headless) çalıştırarak üretir, bu yüzden her zaman koddaki davranışı
+> yansıtır:
+>
+> ```bash
+> python docs/make_screenshots.py                     # varsayılan: --seed 3 --density 0.15
+> python docs/make_screenshots.py --seed 11 --density 0.3
+> ```
 
 ---
 
